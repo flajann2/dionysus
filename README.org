@@ -1,2 +1,5 @@
-* dionysus
+* Dionysus
   Media Scanner and Indexer written in Go
+** Overview
+** Motivation
+

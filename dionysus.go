@@ -5,6 +5,7 @@ import (
 	"os"
 	
 	"github.com/karrick/godirwalk"
+	"github.com/flajann2/dionysus/minetype"
 )
 
 func main() {
