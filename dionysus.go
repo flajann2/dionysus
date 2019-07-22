@@ -12,7 +12,10 @@ func main() {
 	dirname := "/grohnde/torrent"
 	err := godirwalk.Walk(dirname, &godirwalk.Options{
 		Callback: func(osPathname string, de *godirwalk.Dirent) error {
-			fmt.Printf("%s %s\n", de.ModeType(), osPathname)
+			ftype := minetype.Minetype(osPathname)
+			fmt.Printf("%s %s %s\n",
+				de.ModeType(), osPathname, ftype)
+			
 			return nil
 		},
 	})
