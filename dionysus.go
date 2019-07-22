@@ -11,10 +11,12 @@ import (
 func main() {
 	dirname := "/grohnde/torrent"
 	err := godirwalk.Walk(dirname, &godirwalk.Options{
-		Callback: func(osPathname string, de *godirwalk.Dirent) error {
-			ftype := minetype.Minetype(osPathname)
-			fmt.Printf("%s %s %s\n",
-				de.ModeType(), osPathname, ftype)
+		Callback: func(path string, de *godirwalk.Dirent) error {
+			if de.IsRegular(){
+				ftype := minetype.Minetype(path)
+				fmt.Printf("%s %s %s\n",
+					de.ModeType(), path, ftype)
+			}
 			
 			return nil
 		},
