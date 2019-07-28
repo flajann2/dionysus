@@ -36,4 +36,5 @@
     If I want to get really ballsy, I could use ES in combination with, say, MongoDB. But
     this is just my personal media collection for crying out loud! Can you say, "overkill",
     boys and girls? Well, we'll see.
-
+**** Installed Badger
+     just so you know.
