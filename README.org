@@ -1,5 +1,39 @@
 * Dionysus
   Media Scanner and Indexer written in Go
 ** Overview
+   Basically, we wish to manage our media -- video, pdfs, everything. 
+   This is my personal project to have a powerful command-line tool to allow
+   for this so I can find anything instantly and play or load if I like to.
+
 ** Motivation
+   I need a "good excuse" to learn Go, and this is it. The use of goroutines,
+   channels, and the select statement will make this all key.
+
+   Later, I might consider adding a GUI to this all, but not anytime soon!
+   I am a command-line guy, after all.
+
+** Notes
+   These are my "private" notes section, and are not meant to be of use to
+   anyone else. However bemusing you may find the entries after this point,
+   do not take them seriously, and they may be removed at some point. Everything
+   of revelance will appear above here.
+*** Databases to consider
+    I need a lightweight and fast DB to use for managing the metadata.
+    But some considerations should be given to using something like MongoDB or Postgres to allow
+    non-Go code to interact with the DB. Also, there is one Go DB that exposes a MySQL-looking 
+    API. Hmmm, lots of choices to consider for what is basically my "pet" project.
+
+    https://github.com/dgraph-io/badger#using-keyvalue-pairs
+    https://github.com/boltdb/bolt (but this has been archived, so not bloodly likely I'd use this)
+    https://github.com/influxdata/influxdb (too heavyweight for my needs here, but could be useful on other projects)
+    https://github.com/globalsign/mgo (MongoDB -- heavyweight, but doable, and will allow me to use non-Go code as well. Hmmm...)
+    https://github.com/olivere/elastic (Elasticsearch, my old pal!!!!)
+
+    I might to opt for MongoDB. It's "schemaless", and the documents are easy to extend.
+    Also, Elasticsearch may be a better option, but I am leery of using it for "mainline" 
+    storage. However, do we care? If the darn thing dies, all I have to do is rescan everything.
+
+    If I want to get really ballsy, I could use ES in combination with, say, MongoDB. But
+    this is just my personal media collection for crying out loud! Can you say, "overkill",
+    boys and girls? Well, we'll see.
 
