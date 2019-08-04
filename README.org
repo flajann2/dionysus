@@ -38,3 +38,8 @@
     boys and girls? Well, we'll see.
 **** Installed Badger
      just so you know.
+*** GUI frontends (for the futute)
+    https://github.com/therecipe/qt (this is very compelling from the cross platform perspective)
+*** BLE
+    https://www.cnblogs.com/dong1/p/8714612.html
+    https://github.com/muka/go-bluetooth

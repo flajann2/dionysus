@@ -4,10 +4,12 @@ import (
 	"os"
 	"fmt"
 	"flag"
+	"log"
 	
 	"github.com/flajann2/dionysus/minetype"
 	"github.com/karrick/godirwalk"
 	"github.com/h2non/filetype/types"
+	bolt "go.etcd.io/bbolt"
 )
 
 type metadata struct {
@@ -16,6 +18,8 @@ type metadata struct {
 	modetype os.FileMode
 }
 
+const dbname = "dionysus.db"
+const media = "media"
 
 func scanDirectory(ch chan metadata, dirname string) {
 
@@ -37,16 +41,33 @@ func scanDirectory(ch chan metadata, dirname string) {
 	}
 }
 
+func ensure(db *bolt.DB) {
+	db.Update(func(tx *bolt.Tx) error {
+		_, err := tx.CreateBucketIfNotExists([]byte(media))
+		if err != nil{
+			log.Fatal(err)
+		}
+		return nil
+	})
+}
+
 func main() {
 	flag.Parse()	
 	paths := flag.Args()
 
-	ch := make(chan metadata, 100000)
-	for _, path := range paths {
-		fmt.Printf("scanning path: %s\n", path)
-		go scanDirectory(ch, path)
+	db, err := bolt.Open(dbname, 0600, nil)
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		ensure(db)
+		ch := make(chan metadata, 100000)
+		for _, path := range paths {
+			fmt.Printf("scanning path: %s\n", path)
+			go scanDirectory(ch, path)
+		}
+		for	m := range ch {
+			fmt.Printf("ch: %s %s %s\n", m.modetype, m.path, m.minetype)
+		}
 	}
-	for m := range ch {
-		fmt.Printf("ch: %s %s %s\n", m.modetype, m.path, m.minetype)
-	}
+	db.Close()
 }
